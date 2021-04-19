@@ -1,1 +1,0 @@
-# first-next.js-app
