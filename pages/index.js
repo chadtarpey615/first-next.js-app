@@ -1,3 +1,4 @@
+// import { useEffect, useState } from "react";
 import MeetupList from "../components/meetups/MeetupList";
 
 
@@ -19,12 +20,42 @@ const DUMMY_MEETUPS = [
 
     }
 ]
-function HomePage() {
+function HomePage(props) {
+    // const [loadedMeetups, setLoadedMeetups] = useState([])
+    // useEffect(() => {
+    //     // send a http request and fetch data 
+    //     setLoadedMeetups(DUMMY_MEETUPS);
+
+    // }, [])
     return (
 
-        <MeetupList meetups={DUMMY_MEETUPS} />
+        <MeetupList meetups={props.meetups} />
 
     )
+}
+
+// export async function getServerSideProps(context) {
+//     // everything in this function runs on the server not on the client side 
+
+//     const req = context.req
+//     const res = context.res
+//     // fetch data from an api
+//     return {
+//         props: {
+//             meetups: DUMMY_MEETUPS
+//         }
+//     };
+// }
+
+export async function getStaticProps() {
+    // fetch data from an api
+    return {
+        props: {
+            meetups: DUMMY_MEETUPS
+        },
+        // number of seconds next js will wait re generate data on the server 
+        revalidate: 1
+    };
 }
 
 export default HomePage;
