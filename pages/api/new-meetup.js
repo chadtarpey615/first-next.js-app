@@ -8,12 +8,18 @@ async function handler(req, res) {
 
         // const { title, image, address, description } = data;
 
-        const client = MongoClient.connect("mongodb+srv://chads:sony1234@cluster0.06sav.mongodb.net/meetups?retryWrites=true&w=majority")
+        const client = await MongoClient.connect("mongodb+srv://chads:Sony1234@cluster0.06sav.mongodb.net/meetups?retryWrites=true&w=majority")
         const db = client.db();
 
         const meetupsCollection = db.collection("meetups");
 
-        meetupsCollection.insertOne(data);
+        const result = await meetupsCollection.insertOne(data);
+
+        console.log(result);
+
+        client.close()
+
+        res.status(201).json({ message: "Meetup inserted!" })
     }
 }
 
